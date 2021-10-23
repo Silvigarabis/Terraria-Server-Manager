@@ -13,10 +13,7 @@ file="${tmpdir}/${basename}"
 sha256="dbe3f38c1184e22ae688f55bf556418c5897f6ae3f3d6695bd2178f17a86d2b1"
 
 mkdir "${tmpdir}"
-#wget -O "${file}" "${link}"
-cp \
-  /data/user/0/bin.mt.plus/home/wd/Terraria-Server-Manager/MobileTerrariaServer.zip \
-  "${file}"
+wget -O "${file}" "${link}"
 file_sha256=$(sha256sum "${file}" | { read -r; printf "${REPLY%% *}"; })
 if [ "${file_sha256}" != "${sha256}" ]; then
   rm -rf "${tmpdir}"
