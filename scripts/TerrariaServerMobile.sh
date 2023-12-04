@@ -1,8 +1,18 @@
 #!/bin/bash
 # run mobile terraria server
-# only work on linux
 
-set -e
+__init__(){
+  #WD="${PWD}"
+  #PROGRAM_DIR="$(dirname "$(realpath "0")")"
+  #cd "${PROGRAM_DIR}" || PROGRAM_DIR="${WD}"
+  server="server"
+  config_file="server.properties"
+  __load_config__ "${config_file}"
+}
+
+__load_config__(){
+}
+
 __main__(){
   __init__
   if [[ -d ${server} ]] &&
@@ -11,6 +21,7 @@ __main__(){
     __args -world "${PWD}/world.wld" -autocreate -worldname world -motd "A Mobile Terraria Server" -port 7777
   fi
 }
+
 __args_add(){
   if [[ -z ${count:-} ]]
   then
@@ -23,17 +34,15 @@ __args_add(){
     shift
   done
 }
+
 __args_clean(){
   unset args
 }
+
 start_server(){
   
 }
-__init__(){
-  cd "$(dirname "$(realpath "0")")"
-  server="server"
-  config=$(cat server.properties)
-}
+
 __fix_script_permission(){
   local f
   for f in "${STARTUP_SCRIPT}"*
@@ -69,10 +78,6 @@ __safe_exec(){
   "$@"
   set +e
 }
-export MONO_IOMAP=all
-./${BASENAME}.bin.${ext} $@
 
-
-}
+# 传递参数给主方法
 __main__ "$@"
-

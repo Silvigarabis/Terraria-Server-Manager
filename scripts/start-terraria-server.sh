@@ -3,6 +3,20 @@
 # run terraria server
 # only work on linux
 
+args=()
+__main__(){
+   cd $(dirname $(realpath "$0"))
+   if [[ -d ${SERVER} ]] && -f ${STARTUP_SCRIPT} ]] 
+   then
+     if [[ -f ${CONFIG} ]]
+     then
+       __args -config "${CONFIG}"
+     else
+       mkdir -p worlds
+       __args -world "${PWD}/world.wld" -autocreate -worldname world -motd "A Mobile Terraria Server" -port 7777
+     fi
+}
+
 __args_add(){
   if [[ -z ${count:-} ]]
   then
@@ -15,27 +29,17 @@ __args_add(){
     shift
   done
 }
-cd $(dirname $(realpath "$0"))
 
 start_server(){
   
 }
+
 __init(){
   SERVER=ServerLinux
   STARTUP_SCRIPT="${SERVER}/TerrariaServer"
   CONFIG="config.conf"
 }
 
-if [[ -d ${SERVER} ]] &&
-   [[ -f ${STARTUP_SCRIPT} ]] 
-then
-  if [[ -f ${CONFIG} ]]
-  then
-    __args -config "${CONFIG}"
-  else
-    mkdir -p worlds
-    __args -world "${PWD}/world.wld" -autocreate -worldname world -motd "A Mobile Terraria Server" -port 7777
-  fi
 __fix_script_permission(){
   local f
   for f in "${STARTUP_SCRIPT}"*
